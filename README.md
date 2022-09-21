@@ -1,0 +1,2 @@
+# ReversiWeb
+ Reversi Client side
