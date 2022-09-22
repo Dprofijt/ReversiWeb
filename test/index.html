@@ -1,0 +1,64 @@
+<html>
+<head>
+    <script src="../js/feedbackWidget.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
+    <link rel="shortcut icon" type="image/png" href="jasmine/lib/jasmine/jasmine_favicon.png">
+    <link rel="stylesheet" type="text/css" href="jasmine/lib/jasmine/jasmine.css">
+
+    <script type="text/javascript" src="jasmine/lib/jasmine/jasmine.js"></script>
+    <script type="text/javascript" src="jasmine/lib/jasmine/jasmine-html.js"></script>
+    <script type="text/javascript" src="jasmine/lib/jasmine/boot.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+
+</head>
+<body>
+
+<script>
+    beforeAll(function (done) {
+        $(function () {
+            done();
+        });
+    });
+    describe("A suite", function () {
+        it("contains spec with an expectation", function () {
+            expect(true).toBe(true);
+        });
+    });
+
+    describe("Application initialisation", function () {
+        it("Method init returns true", function () {
+            const result = myApp.init();
+            expect(result).toBe(true);
+        });
+    });
+    // describe("Feedbackwidget hide", function(){
+    //     // make a new instance of the FeedbackWidget
+    //     let s = new FeedbackWidget("success");
+    //     // console.log(s)
+    //     s.hide();
+    //     console.log(s)
+    //     it("DOM element bestaat", function(){
+    //         expect($('success')).toBeDefined();
+    //     })
+    //
+
+
+
+//         let s = new FeedbackWidget("feedback-success");
+//         s.hide();
+//         it("DOM element bestaat", function(){
+//             expect($('feedback-success')).toBeDefined();
+//         })
+//         it("feedbackwidget hide is true", function(){
+// //           check if feedbackwidget is hidden
+//             expect($('#feedback-success').attr("style")).toBe("display:block");
+//         })
+    })
+
+
+</script>
+
+
+</body>
+</html>
