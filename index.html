@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>Javascript getting started</title>
 
-    <script src="js/feedbackWidget.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
 
     <!-- Latest compiled and minified CSS -->
@@ -20,27 +18,52 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
+
+    <script src="js/feedbackWidget.js"></script>
+    <script src="js/game.js"></script>
+
 </head>
 <body>
 <script>
-    $( document ).ready(function() {
-        $("#feedbackwidgetbutton").on("click", function(){
-            let f = new FeedbackWidget()
-            f.show("Gaat goed", "success")
+    $(document).ready(function () {
+        let f = new FeedbackWidget("feedback")
+        f.removeLog()
+        $("#feedbackwidgetbutton").on("click", function () {
+            f.show("1test", "error")
+            f.show("2error1", "error")
+            f.show("3error2", "error")
+            f.show("4error3", "error")
+            f.show("5success1", "success")
+            f.show("6success2", "success")
+            f.show("7success3", "success")
+            f.show("8bla", "success")
+            f.show("9bla", "success")
+            f.show("10bla", "success")
+
+            f.history()
+            // if(f.className.){
+            //     f.show("Geweigerd", "error")
+            //     // success.hide();
+            //     // danger.show("gaat fout");
+            // } else {
+            //     f.show("Akkoord", "success")
+            //     // success.show("gaat goed");
+            //     // danger.hide()
+            // }
         });
     });
 </script>
 <button type="button" id="feedbackwidgetbutton">OK</button>
-<div id="feedback-success" class="alert alert-success" role="alert">
-    <p>Veel succes met deze module!</p>
+<!--<div id="feedback-success" class="alert alert-success" role="alert">-->
+<!--    <p></p>-->
+<!--</div>-->
+<div id="feedback" class="alert" role="alert">
+    <p></p>
 </div>
 
-
-<div id="feedback-danger" class="alert alert-danger" role="alert" style="display:none">
-    <p>Pas op voor loslopende bits.</p>
-</div>
-
-
+<!--<div id="feedback-danger" class="alert alert-danger" role="alert" style="display:none">-->
+<!--    <p></p>-->
+<!--</div>-->
 
 
 </body>

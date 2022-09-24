@@ -1,5 +1,6 @@
+class FeedbackWidget {
+    ;
 
-class FeedbackWidget{;
     constructor(elementId) {
 
         this._elementId = elementId;
@@ -8,49 +9,81 @@ class FeedbackWidget{;
     get elementId() { //getter, set keyword voor setter methode
         return this._elementId;
     }
+
     set elementId(value) {
         this._elementId = value;
     }
 
 
-    show(message, type){
+    show(message, type) {
 
         let element = document.getElementById(this._elementId);
         element.style.display = "block";
+
         element.textContent = message;
 
-        if(type === 'success'){
-            element.style.color = 'green';
+        if (type === 'success') {
+            element.className = "alert alert-success";
         }
-        if(type === 'error'){
-            element.style.color = 'red';
+        if (type === 'error') {
+            element.className = "alert alert-danger";
         }
-        this.log(message);
-    }
-    hide(){
-        this._element.removeClass("widget-show")
-        this._element.addClass("widget-hidden")
+        this.log({message, type});
     }
 
-// log in local storage
-    log(message){
-        // add new massage to storage
-        if(!(localStorage.getItem('feedback_widget'))){
-            let storage = {
-                messages: [message]
-            }
+    hide() {
+        let element = document.getElementById(this._elementId);
+        element.style.display = "none";
+    }
+
+    log(message) {
+        let storage = []
+        if (!(localStorage.getItem('feedback_widget'))) {
+            storage.push(message);
             localStorage.setItem('feedback_widget', JSON.stringify(storage));
         } else {
-            let storage = JSON.parse(localStorage.getItem('feedback_widget'));
-            storage.messages.unshift(message)
-            if(storage.messages.length > 10){
-                storage.messages.pop();
+            storage = JSON.parse(localStorage.getItem('feedback_widget'));
+            storage.unshift(message)
+            if (storage.length > 10) {
+                storage.pop();
             }
             localStorage.setItem('feedback_widget', JSON.stringify(storage));
         }
     }
-    removeLog(){
-        localStorage.removeItem("feedback_widget");
+
+    removeLog() {
+        localStorage.clear();
     }
 
+    history() {
+        let messages = localStorage.getItem('feedback_widget');
+        let messageArray = [];
+
+        let string = '';
+
+        if (messages) {
+            console.log(JSON.parse(messages));
+            messageArray = JSON.parse(messages);
+        }
+
+        for (let i = 0; i < messageArray.length; i++) {
+            string += ' <type: ' + messageArray[i].message + ' - ' + messageArray[i].type + '>   \n';
+        }
+
+        this.show(string, 'success');
+
+    }
+
+
 }
+
+// const success = new FeedbackWidget("feedback-success");
+// success.show("Gaat goed", 'success');
+//
+// const error = new FeedbackWidget("feedback-danger");
+// error.show("Gaat fout", 'error');
+
+// log
+// const log = new FeedbackWidget("feedback-log");
+// log.log({message: 'Bijna klaar, tijd voor koffie',
+//     type: 'success'});

@@ -1,6 +1,6 @@
 <html>
 <head>
-    <script src="../js/feedbackWidget.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
     <link rel="shortcut icon" type="image/png" href="jasmine/lib/jasmine/jasmine_favicon.png">
     <link rel="stylesheet" type="text/css" href="jasmine/lib/jasmine/jasmine.css">
@@ -10,8 +10,21 @@
     <script type="text/javascript" src="jasmine/lib/jasmine/boot.js"></script>
     <script type="text/javascript" src="app.js"></script>
 
+    <script src="../js/feedbackWidget.js"></script>
+    <script src=../js/game.js></script>
 
 </head>
+
+<div id="feedback-success" class="alert alert-success" role="alert" style="display:block">
+    <p>Veel succes met deze module!</p>
+    <button id="knop">Ok</button>
+</div>
+
+<div id="feedback-danger" class="alert alert-danger" role="alert" style="display:none">
+    <p>Pas op voor loslopende bits.</p>
+
+</div>
+
 <body>
 
 <script>
@@ -20,6 +33,7 @@
             done();
         });
     });
+
     describe("A suite", function () {
         it("contains spec with an expectation", function () {
             expect(true).toBe(true);
@@ -32,29 +46,34 @@
             expect(result).toBe(true);
         });
     });
-    // describe("Feedbackwidget hide", function(){
-    //     // make a new instance of the FeedbackWidget
-    //     let s = new FeedbackWidget("success");
-    //     // console.log(s)
-    //     s.hide();
-    //     console.log(s)
-    //     it("DOM element bestaat", function(){
-    //         expect($('success')).toBeDefined();
-    //     })
-    //
+
+    describe("Is feedback defined?", function () {
+        it("is success defined?", function () {
+            expect($("#feedback-success")).toBeDefined();
+        });
+    });
+    describe("Dom element bestaat", function () {
+        it("is widget verborgen?", function () {
+            $("#feedback-success").hide();
+            expect($("#feedback-success").attr('style')).toBe('display: none;');
+        })
+    });
+    //Test if Game exists
+    describe("Does Game exist?", function () {
+        it("Does Game exist?", function () {
+            Game.init()
+            expect(Game).toBeDefined();
+        })
+    });
+
+    //tets if init function exists
+    describe("Does init function exist?", function () {
+        it("Does init function exist?", function () {
+            expect(Game.init).toBeDefined();
+        })
+    });
 
 
-
-//         let s = new FeedbackWidget("feedback-success");
-//         s.hide();
-//         it("DOM element bestaat", function(){
-//             expect($('feedback-success')).toBeDefined();
-//         })
-//         it("feedbackwidget hide is true", function(){
-// //           check if feedbackwidget is hidden
-//             expect($('#feedback-success').attr("style")).toBe("display:block");
-//         })
-    })
 
 
 </script>
