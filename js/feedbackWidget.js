@@ -37,18 +37,13 @@ class FeedbackWidget {
     }
 
     log(message) {
-        let storage = []
-        if (!(localStorage.getItem('feedback_widget'))) {
-            storage.push(message);
-            localStorage.setItem('feedback_widget', JSON.stringify(storage));
-        } else {
-            storage = JSON.parse(localStorage.getItem('feedback_widget'));
-            storage.unshift(message)
-            if (storage.length > 10) {
-                storage.pop();
-            }
-            localStorage.setItem('feedback_widget', JSON.stringify(storage));
+        let storage = JSON.parse(localStorage.getItem('feedback_widget')) || [];
+
+        storage.unshift(message)
+        if (storage.length > 10) {
+            storage.pop();
         }
+        localStorage.setItem('feedback_widget', JSON.stringify(storage));
     }
 
     removeLog() {

@@ -20,7 +20,7 @@
             crossorigin="anonymous"></script>
 
     <script src="js/feedbackWidget.js"></script>
-    <script src="js/game.js"></script>
+    <script src="js/Game/game.js"></script>
 
 </head>
 <body>
@@ -38,19 +38,17 @@
             f.show("7success3", "success")
             f.show("8bla", "success")
             f.show("9bla", "success")
-            f.show("10bla", "success")
+          //  f.show("10bla", "success")
+          //   f.history()
+        })
 
-            f.history()
-            // if(f.className.){
-            //     f.show("Geweigerd", "error")
-            //     // success.hide();
-            //     // danger.show("gaat fout");
-            // } else {
-            //     f.show("Akkoord", "success")
-            //     // success.show("gaat goed");
-            //     // danger.hide()
-            // }
-        });
+
+        function afterInit() {
+            console.log('Game init voltooid')
+        }
+        Game.init(afterInit);
+        afterInit()
+
     });
 </script>
 <button type="button" id="feedbackwidgetbutton">OK</button>
