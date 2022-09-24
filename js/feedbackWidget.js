@@ -1,6 +1,4 @@
 class FeedbackWidget {
-    ;
-
     constructor(elementId) {
 
         this._elementId = elementId;
@@ -22,6 +20,11 @@ class FeedbackWidget {
 
         element.textContent = message;
 
+        if (type === 'history') {
+            element.className = "alert alert-info";
+            // this return is needed to not execute the log function
+            return;
+        }
         if (type === 'success') {
             element.className = "alert alert-success";
         }
@@ -51,25 +54,16 @@ class FeedbackWidget {
     }
 
     history() {
-        let messages = localStorage.getItem('feedback_widget');
-        let messageArray = [];
-
+        let messageArray = JSON.parse(localStorage.getItem('feedback_widget')) || []
         let string = '';
 
-        if (messages) {
-            console.log(JSON.parse(messages));
-            messageArray = JSON.parse(messages);
-        }
-
-        for (let i = 0; i < messageArray.length; i++) {
-            string += ' <type: ' + messageArray[i].message + ' - ' + messageArray[i].type + '>   \n';
-        }
-
-        this.show(string, 'success');
-
+        messageArray.forEach((message) => {
+            let item = '<type: ' + message.message + ' - ' + message.type + '>   \n'
+            string += item;
+            console.log(item)
+        })
+        this.show(string, 'history');
     }
-
-
 }
 
 // const success = new FeedbackWidget("feedback-success");

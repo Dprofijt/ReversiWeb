@@ -40,4 +40,4 @@ Game.Data = (function(){
         init: privateInit
     }
 
-}
+})();
