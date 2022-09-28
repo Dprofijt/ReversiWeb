@@ -23,6 +23,7 @@ class FeedbackWidget {
         if (type === 'history') {
             element.className = "alert alert-info";
             // this return is needed to not execute the log function
+            // and not add anything to the history
             return;
         }
         if (type === 'success') {
@@ -55,16 +56,21 @@ class FeedbackWidget {
 
     history() {
         let messageArray = JSON.parse(localStorage.getItem('feedback_widget')) || []
-        let string = '';
+        let string;
 
         messageArray.forEach((message) => {
-            let item = '<type: ' + message.message + ' - ' + message.type + '>   \n'
+            let item = '<type: ' + message.type + '> - <' + message.message + '>   \n'
             string += item;
             console.log(item)
         })
         this.show(string, 'history');
     }
 }
+
+
+
+
+
 
 // const success = new FeedbackWidget("feedback-success");
 // success.show("Gaat goed", 'success');

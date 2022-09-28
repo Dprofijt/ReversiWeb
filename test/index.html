@@ -61,7 +61,6 @@
     //Test if Game exists
     describe("Does Game exist?", function () {
         it("Does Game exist?", function () {
-            Game.init()
             expect(Game).toBeDefined();
         })
     });
@@ -70,6 +69,18 @@
     describe("Does init function exist?", function () {
         it("Does init function exist?", function () {
             expect(Game.init).toBeDefined();
+        })
+    });
+    // Does Game.Data exist?
+    describe("Does Game.Data exist?", function () {
+        it("Does Game.Data exist?", function () {
+            expect(Game.Data).toBeDefined();
+        })
+    });
+    // Does Game.Model exist?
+    describe("Does Game.Model exist?", function () {
+        it("Does Game.Model exist?", function () {
+            expect(Game.Model).toBeDefined();
         })
     });
 
