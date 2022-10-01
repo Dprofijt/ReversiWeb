@@ -30,16 +30,6 @@ Game.Data = (function(){
             data: 0
         }]
     }
-    const getMockData = function(url){
-
-        //filter mock data, configMap.mock ... oei oei, moeilijk moeilijk :-)
-        const mockData = configMap.mock.filter((item) => {
-            return item.url === url;
-        })
-        return new Promise((resolve, reject) => {
-            resolve(mockData);
-        });
-    }
 
     const get = function(url){
         return $.get(url)
@@ -49,6 +39,17 @@ Game.Data = (function(){
             .catch(e => {
                 console.log(e.message);
             });
+    }
+
+    const getMockData = function(url){
+
+        //filter mock data, configMap.mock ... oei oei, moeilijk moeilijk :-)
+        const mockData = configMap.mock.filter((item) => {
+            return item.url === url;
+        })
+        return new Promise((resolve, reject) => {
+            resolve(mockData);
+        });
     }
 
     let privateInit = function () {
@@ -69,19 +70,16 @@ Game.Model = (function(){
 
     // GetWeatherData (use Game.Data.get)
     // with url: 'http://api.openweathermap.org/data/2.5/weather?q=zwolle&apikey=d856e701b9205f6d6cac399ac29549b7'
-    //check if temperature is defined
-    let getWeather = function () {
-        Game.Data.get().then(
-            data => {
-                if (!data.main.temp) {
-                    console.log("Error")
-                }
-                else {
-                    console.log(data)
-                }
-            }
-        );
 
+    // getWeather function
+    const getWeather = function(){
+        return Game.Data.get('http://api.openweathermap.org/data/2.5/weather?q=zwolle&apikey=d856e701b9205f6d6cac399ac29549b7')
+            .then(r => {
+                return r;
+            })
+            .catch(e => {
+                console.log(e.message);
+            });
     }
 
     let privateInit = function () {
@@ -89,9 +87,9 @@ Game.Model = (function(){
     }
     return{
         init: privateInit,
-        getWeather: getWeather
+        getWeather
     }
-})
+})();
 
 Game.Reversi = (function(){
     console.log('hallo, vanuit module Reversi')

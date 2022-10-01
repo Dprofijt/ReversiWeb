@@ -25,7 +25,7 @@
 </head>
 <body>
 <script>
-    $(document).ready(function () {
+    $(document).ready(async function () {
         let f = new FeedbackWidget("feedback")
         f.removeLog()
         $("#feedbackwidgetbutton").on("click", function () {
@@ -38,46 +38,50 @@
             f.show("7success3", "success")
             f.show("8bla", "success")
             f.show("9bla", "success")
-          //  f.show("10bla", "success")
-             f.history()
+            //  f.show("10bla", "success")
+            f.history()
         })
 
         function afterInit() {
             console.log('Game init voltooid')
         }
+
         Game.init(afterInit);
         afterInit()
-        const url = 'http://api.openweathermap.org/data/2.5/weather?q=zwolle&apikey=d856e701b9205f6d6cac399ac29549b7';
-        const promise = $.get(url);
-        console.log(promise);
-        const url2 = 'http://api.openweathermap.org/data/2.5/weather?q=zwolle&apikey=d856e701b9205f6d6cac399ac29549b7';
+        // const url = 'http://api.openweathermap.org/data/2.5/weather?q=zwolle&apikey=d856e701b9205f6d6cac399ac29549b7';
+        // const promise = $.get(url);
+        // console.log(promise);
+        // const url2 = 'http://api.openweathermap.org/data/2.5/weather?q=zwolle&apikey=d856e701b9205f6d6cac399ac29549b7';
+        //
+        // $.get(url2).then(function(responseData){
+        //     console.log(responseData);
+        // });
+        //
+        // const getWeatherData = function(){
+        //     const url = 'http://api.openweathermap.org/data/2.5/weather?q=zwolle&apikey=d856e701b9205f6d6cac399ac29549b7';
+        //     return $.get(url);
+        //
+        // };
 
-        $.get(url2).then(function(responseData){
-            console.log(responseData);
-        });
+        // getWeatherData().then(d => {
+        //     console.log(d);
+        // });
+        //
+        // getWeatherData().then(d => {
+        //     return {
+        //         data: d,
+        //         meta: 'vanuit eerste schakel van de chain'
+        //     }
+        // }).then(r => {
+        //     console.log(`Bericht ontvangen in tweede schakel: ${r.meta}`);
+        //     throw new Error('Error gegooid');
+        // }).catch(e => {
+        //     console.log(`Error opgevangen, error bericht: ${e.message}`);
+        // });
 
-        const getWeatherData = function(){
-            const url = 'http://api.openweathermap.org/data/2.5/weather?q=zwolle&apikey=d856e701b9205f6d6cac399ac29549b7';
-            return $.get(url);
-
-        };
-
-        getWeatherData().then(d => {
-            console.log(d);
-        });
-
-        getWeatherData().then(d => {
-            return {
-                data: d,
-                meta: 'vanuit eerste schakel van de chain'
-            }
-        }).then(r => {
-            console.log(`Bericht ontvangen in tweede schakel: ${r.meta}`);
-            throw new Error('Error gegooid');
-        }).catch(e => {
-            console.log(`Error opgevangen, error bericht: ${e.message}`);
-        });
-
+        // await Game.Model.getWeather().then(d => {
+        //     console.log(d);
+        // });
         Game.Model.getWeather()
 
     });

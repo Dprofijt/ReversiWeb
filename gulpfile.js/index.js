@@ -7,7 +7,6 @@ js.displayName = 'js';
 const sass = require('./tasks/sass').sass(config.localServerProjectPath, config.files.css);
 sass.displayName = 'sass';
 
-
 const hello = function (done) {
     console.log(`Groeten aan ${config.voornaam} van Gulp!`)
     done();
