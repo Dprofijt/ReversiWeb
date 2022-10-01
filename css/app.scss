@@ -1,0 +1,39 @@
+$primaryColor: #333;
+$white: #fff;
+$black: #000;
+$maxWidth: 800px;
+$maxHeight: 800px;
+
+body{
+  color: $primaryColor;
+}
+
+.gameplay{
+  border: 1px solid #ccc;
+  padding: 15px;
+  width: $maxWidth;
+  height: $maxHeight;
+}
+
+.fiche-wit {
+  border-radius:50%;
+  background-color: white;
+}
+
+.fiche-zwart {
+  border-radius: 50%;
+  background-color: black;
+}
+
+.kolom {
+  width: calc($maxWidth/7);
+
+  color: red;
+}
+
+.rij {
+    height: calc($maxHeight/7);
+
+
+  color: blue;
+}

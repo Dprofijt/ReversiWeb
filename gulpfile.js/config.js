@@ -9,7 +9,7 @@ module.exports = {
             'js/game.js',
         ],
         css: [
-            'css/**/*.css',
+            'css/**/*.scss',
         ]
     },
     voornaam: 'Damian'

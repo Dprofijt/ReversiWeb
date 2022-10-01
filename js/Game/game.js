@@ -70,11 +70,11 @@ Game.Model = (function(){
     // GetWeatherData (use Game.Data.get)
     // with url: 'http://api.openweathermap.org/data/2.5/weather?q=zwolle&apikey=d856e701b9205f6d6cac399ac29549b7'
     //check if temperature is defined
-    const getWeather = function () {
+    let getWeather = function () {
         Game.Data.get().then(
             data => {
                 if (!data.main.temp) {
-                    throw new Error('no temp')
+                    console.log("Error")
                 }
                 else {
                     console.log(data)
@@ -96,10 +96,10 @@ Game.Model = (function(){
 Game.Reversi = (function(){
     console.log('hallo, vanuit module Reversi')
 
-    configMap = {
+    let configMap = {
         Game: null,
     }
-    privateInit = function(){
+    let privateInit = function () {
         console.log('hallo, vanuit Reversi')
     }
 
