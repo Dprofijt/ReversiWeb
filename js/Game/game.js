@@ -5,11 +5,29 @@ const Game = (function (url) {
 		apiUrl: url
 	}
 
+	let stateMap = {
+		gameState: 'notStarted',
+	}
+
+	const _getCurrentGameState = function () {
+		// every2 seconds, get the current game state
+		stateMap.gameState = Game.Model.getGameState();
+
+	}
+
 	// Private function init
 	const privateInit = function () {
 		console.log('Private information!');
 		console.log('hallo, vanuit Game')
 		console.log(configMap.apiUrl);
+
+
+
+		Game.Data.init("development", configMap.apiUrl);
+
+		// every 2 seconds, get the current game state
+		setInterval(_getCurrentGameState, 2000);
+
 	}
 
 	// Waarde/object geretourneerd aan de outer scope
@@ -50,28 +68,34 @@ Game.Data = (function () {
 		});
 	}
 	const get = function (url) {
-        if (stateMap.environment === 'development') {
-            return getMockData(url);
-        } else if (stateMap.environment === 'production') {
-            return $.get(url)
-                .then(r => {
-                    return r
-                })
-                .catch(e => {
-                    console.log(e.message);
-                });
-        } else {
-            throw new Error('Environment not set');
-        }
 
+		if (stateMap.environment === "development") {
+			return getMockData(configMap.mock.url);
+		} else if (stateMap.environment === "production") {
+			return $.get(url)
+				.then(r => {
+					return r
+				})
+				.catch(e => {
+					console.log(e.message);
+				});
+		} else {
+			throw new Error('Environment not set');
+		}
 	}
 
-
-	let privateInit = function (environment) {
-		if (environment !== "production" || environment !== "development") {
+	let privateInit = function (environment, apiUrl) {
+		if (environment !== "production" && environment !== "development") {
 			throw new Error('Environment not set');
 		}
 		stateMap.environment = environment;
+		if (stateMap.environment === "development") {
+			return getMockData(configMap.mock.url);
+		} else if (stateMap.environment === "production") {
+			return get(apiUrl);
+		} else {
+			throw new Error('Environment not set');
+		}
 		console.log('hallo, vanuit Data')
 	}
 	return {
@@ -89,7 +113,6 @@ Game.Model = (function () {
 
 	// GetWeatherData (use Game.Data.get)
 	// with url: 'http://api.openweathermap.org/data/2.5/weather?q=zwolle&apikey=d856e701b9205f6d6cac399ac29549b7'
-
 	// getWeather function
 	const getWeather = function () {
 		return Game.Data.get('http://api.openweathermap.org/data/2.5/weather?q=zwolle&apikey=d856e701b9205f6d6cac399ac29549b7')
@@ -106,11 +129,30 @@ Game.Model = (function () {
 			});
 	}
 
+	const _getGameState = function () {
+		// where to get token?
+		const token = localStorage.getItem('token');
+		return Game.Data.get(`api/Spel/Beurt/${token}`)
+			.then(r => {
+				// check if r is 0,1 or 2
+				if (r === 0 || r === 1 || r === 2) {
+					return r;
+				} else {
+					throw new Error('No game state found');
+				}
+			})
+			.catch(e => {
+				console.error("Er is geen gamestate gevonden");
+				throw new Error('No gamestate found');
+			});
+	}
+
 	let privateInit = function () {
 		console.log('hallo, vanuit Model')
 	}
 	return {
 		init: privateInit,
+		getGameState: _getGameState,
 		getWeather
 	}
 })();
